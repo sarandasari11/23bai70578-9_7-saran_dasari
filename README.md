@@ -28,7 +28,6 @@ exp7/
 ├── pom.xml
 ├── README.md
 ├── screenshots/
-│   └── .gitkeep
 └── src/
     ├── main/
     │   ├── java/com/example/experiment7/
@@ -51,7 +50,7 @@ exp7/
     │   │   └── Experiment7Application.java
     │   └── resources/application.properties
     └── test/java/com/example/experiment7/RbacIntegrationTest.java
-└──pom.xml
+
     
 ```
 
