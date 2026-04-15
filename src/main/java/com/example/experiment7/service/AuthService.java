@@ -28,6 +28,8 @@ public class AuthService {
         AppUser user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new IllegalStateException("Authenticated user not found in database"));
 
-        return new LoginResponse("Login successful", user.getUsername(), user.getRole().name());
+        String role = user.getRole().name().replace("ROLE_", "");
+
+        return new LoginResponse("Login successful", user.getUsername(), role);
     }
 }

@@ -20,6 +20,10 @@ This project implements authentication and role-based authorization using Spring
 - Spring Data JPA
 - H2 in-memory database
 - Maven
+- React
+- Bootstrap
+- Material UI
+- Axios
 
 ## Project Structure
 
@@ -27,6 +31,23 @@ This project implements authentication and role-based authorization using Spring
 exp7/
 ├── pom.xml
 ├── README.md
+├── frontend/
+│   ├── package.json
+│   ├── public/
+│   │   └── index.html
+│   └── src/
+│       ├── App.js
+│       ├── index.js
+│       ├── styles.css
+│       ├── components/
+│       │   ├── AdminDashboard.js
+│       │   ├── Login.js
+│       │   ├── SessionPanel.js
+│       │   ├── TopBar.js
+│       │   └── UserDashboard.js
+│       └── utils/
+│           ├── api.js
+│           └── auth.js
 ├── screenshots/
 │   └── .gitkeep
 └── src/
@@ -73,6 +94,8 @@ exp7/
 
 ## Run Instructions
 
+### Backend (Spring Boot API)
+
 1. Open terminal in `exp7`.
 2. Run:
 
@@ -80,11 +103,78 @@ exp7/
 mvn spring-boot:run
 ```
 
-3. App starts on:
+3. Backend starts on:
 
 ```text
 http://localhost:8080
 ```
+
+### Frontend (React RBAC UI)
+
+1. Open terminal in `exp7/frontend`.
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start React app:
+
+```bash
+npm start
+```
+
+4. Frontend runs on:
+
+```text
+http://localhost:3000
+```
+
+## Frontend RBAC Flow
+
+### 1) Login Page
+
+- Accepts username/password
+- Calls `POST /api/auth/login`
+- Stores session details in `sessionStorage`:
+  - `username`
+  - `role`
+  - `authHeader` (Basic auth header derived from login credentials)
+- Redirects by role:
+  - `USER` -> `/user`
+  - `ADMIN` -> `/admin`
+
+### 2) Role-Based Dashboards
+
+- USER Dashboard:
+  - Can call `GET /api/user/profile`
+  - Cannot access `GET /api/admin/dashboard`
+- ADMIN Dashboard:
+  - Can call `GET /api/admin/dashboard`
+  - Can call `GET /api/user/profile`
+
+### 3) Role-Based UI Control
+
+- USER role cannot see active admin controls
+- ADMIN role sees user and admin controls
+- Unauthorized route access redirects to login or forbidden view
+
+### 4) Logout
+
+- Logout action calls `sessionStorage.clear()` and redirects to login
+
+## Frontend Route Map
+
+- `/` -> Login page
+- `/user` -> User dashboard (USER or ADMIN)
+- `/admin` -> Admin dashboard (ADMIN only)
+- `/forbidden` -> Access denied page
+
+## Frontend API Integration Notes
+
+- Login uses `/api/auth/login` to validate credentials and fetch role
+- Secured calls use `Authorization: Basic ...` from stored session auth header
+- Backend still enforces role checks; UI restrictions are only a convenience layer
 
 ## Postman Testing Steps
 
@@ -145,21 +235,6 @@ After importing, select the **Experiment7 Local** environment and run requests i
 - URL: `http://localhost:8080/api/user/profile`
 - No Authorization header
 - Expected: `401 Unauthorized`
-
-## Mandatory Screenshot Checklist
-
-Put screenshots in the `screenshots/` folder. Suggested names:
-
-- `01-login-success.png`
-- `02-secured-success.png`
-- `03-user-endpoint-success.png`
-- `04-access-denied-or-admin-success.png`
-
-Recommended extras:
-
-- `05-invalid-login.png`
-- `06-no-token-401.png`
-- `07-user-forbidden-403.png`
 
 ## Test Coverage
 

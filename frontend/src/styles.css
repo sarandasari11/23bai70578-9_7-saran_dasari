@@ -1,0 +1,36 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f9ff 0%, #fff7ed 45%, #fef2f2 100%);
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.card-shadow {
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.12);
+}
+
+.role-chip {
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.role-chip.user {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.role-chip.admin {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.stat-box {
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
