@@ -10,6 +10,7 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 .flattened-pom.xml
+.tools/
 
 # IDE
 .idea/
@@ -31,3 +32,8 @@ dependency-reduced-pom.xml
 
 # Runtime
 logs/
+
+# Frontend
+frontend/node_modules/
+frontend/build/
+frontend/.env.local
